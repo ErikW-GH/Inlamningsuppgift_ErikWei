@@ -1,23 +1,20 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-
         // Skapa en UserList
-        UserList userList = new UserList();
+        //UserList userList = new UserList();
 
-        System.out.println("Hello world!");
+        System.out.println(
+                "########### Inlämningsuppgift ###########"
+        );
+        askStart();
 
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Enter id:");
+        //System.out.println("1. Add user");
 
-        Integer userID = getUserID(userInput);
-        if (userID == null) return; //exit function
         /*
         // New instance
         var user1 = new User(userID, "Erik", "erikwei@hotmail.com");
@@ -55,16 +52,18 @@ public class Main {
         //User user2 = new User(2, "Erik2", "erikwei@hotmail.com2");*/
 
         // Lägg till användarna till listan
-        userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
+        /*userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
         System.out.println(userID);
-        userID = getUserID(userInput);
+        userID = setUserID(userInput);
         if (userID == null) return; //exit function
-        userList.addUser(new User(userID, "David", "david@live.com"));
+        userList.addUser(new User(userID, "David", "david@live.com"));*/
 
         // Skriv ut namnen på alla användare i listan
-        for (int i = 0; i < userList.getSize(); i++) {
+        /*for (int i = 0; i < userList.getSize(); i++) {
             System.out.println(userList.getUser(i));
         }
+
+         */
 
 
         /*User user1 = new User(1, "Alice", "alice@gmail.com");
@@ -79,7 +78,7 @@ public class Main {
 
     }
 
-    private static Integer getUserID(Scanner userInput) {
+    private static Integer setUserID(Scanner userInput) {
         int userID;
 
         // Try-catch for unintended input, will update to while loop to restart at input
@@ -92,5 +91,44 @@ public class Main {
         return userID;
     }
 
+    public static void askStart(){
+        UserList userList = new UserList();
+        System.out.println(
+                """
+                        Welcome, do you want to:
+                        1. Add user
+                        2. Remove user
+                        3. Get specific user"""
+        );
+
+
+
+        Scanner scanner = new Scanner(System.in);
+
+            switch (scanner.nextInt()) {
+            case 1:
+                System.out.println("1. Add user");
+                Scanner userInput = new Scanner(System.in);
+                System.out.println("Enter id:");
+                Integer userID = setUserID(userInput);
+
+                if (userID == null) return; //exit function
+                userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
+                for (int i = 0; i < userList.getSize(); i++) {
+                    System.out.println(userList.getUser(i));
+                }
+                break;
+
+
+            case 2:
+                System.out.println("2. Remove user");
+                break;
+
+            case 3:
+                System.out.println("3. Get specific user");
+                break;
+            }
+
+    }
 
 }

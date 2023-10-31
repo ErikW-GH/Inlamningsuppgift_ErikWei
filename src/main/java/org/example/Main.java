@@ -11,7 +11,7 @@ public class Main {
         System.out.println(
                 "########### Inlämningsuppgift ###########"
         );
-        askStart();
+        askAtStart();
 
         //System.out.println("1. Add user");
 
@@ -91,9 +91,14 @@ public class Main {
         return userID;
     }
 
-    public static void askStart(){
+    /**
+     * Method which asks and takes the input from the user of listed options
+     */
+    public static void askAtStart() {
         UserList userList = new UserList();
+
         System.out.println(
+
                 """
                         Welcome, do you want to:
                         1. Add user
@@ -101,24 +106,23 @@ public class Main {
                         3. Get specific user"""
         );
 
+        Scanner switchChoice = new Scanner(System.in);
 
-
-        Scanner scanner = new Scanner(System.in);
-
-            switch (scanner.nextInt()) {
+        switch (switchChoice.nextInt()) {
             case 1:
                 System.out.println("1. Add user");
                 Scanner userInput = new Scanner(System.in);
                 System.out.println("Enter id:");
-                Integer userID = setUserID(userInput);
+                var userID = setUserID(userInput);
 
                 if (userID == null) return; //exit function
                 userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
+
                 for (int i = 0; i < userList.getSize(); i++) {
+                    // Debug
                     System.out.println(userList.getUser(i));
                 }
                 break;
-
 
             case 2:
                 System.out.println("2. Remove user");
@@ -127,7 +131,7 @@ public class Main {
             case 3:
                 System.out.println("3. Get specific user");
                 break;
-            }
+        }
 
     }
 

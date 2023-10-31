@@ -5,134 +5,151 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        // Skapa en UserList
-        //UserList userList = new UserList();
+        //  Instantiates UserList and Scanner-class
+        UserList userList = new UserList();
+        Scanner userInput = new Scanner(System.in);
+
+        int option = 0;
 
         System.out.println(
                 "########### Inlämningsuppgift ###########"
         );
-        askAtStart();
 
-        //System.out.println("1. Add user");
+        // Loops back while 0, or after user changes option through the switch-case
+        while (option >= 0) {
 
-        /*
-        // New instance
-        var user1 = new User(userID, "Erik", "erikwei@hotmail.com");
-        //var user2 = new User(2, "Erik2", "erikwei2@hotmail.com");
+            option = askAtStart(userInput);
 
-        // Creates an Array for User
-        List<User> UserList = new ArrayList<>();
+            switch (option) {
 
-        UserList.add(user1);
-        //UserList.add(user2);
+                case 1:
+                    //System.out.println("1. Add user");
+                    System.out.println("Enter id:");
+                    var userID = inputNumberThanks(userInput);
+                    System.out.println("Enter name");
+                    var userName = inputStringThanks(userInput);
+                    System.out.println("Enter mail");
+                    var userMail = inputStringThanks(userInput);
 
-        // Print .toString for debug
-        System.out.println(UserList.toString());
-        */
+                    userList.addUser(new User(userID, userName, userMail));
+                    System.out.println("Saved user:" + userName);
 
+                    break;
 
-        /*User user1 = new User();
-        user1.setId(userID);
-        user1.setName("Erik");
-        user1.setEmail("erikwei@hotmail.com");
+                case 2:
+                    //System.out.println("2. Remove user");
+                    break;
 
-        System.out.println("Enter id:");
+                case 3:
+                    //System.out.println("3. Get specific user");
+                    System.out.println("These are the listed users: ");
+                    for (int i = 0; i < userList.getSize(); i++) {
 
-        // Try-catch for unintended input, will update to while loop to restart at input
-        try {
-            userID = Integer.parseInt(userInput.nextLine());
-        } catch (Exception ex) {
-            System.out.println("Error: Could not parse age to number, exiting");
-            return; //exit function
+                        System.out.println(userList.getUser(i));
+                    }
+                    break;
+
+                case 4:
+                    //System.out.println("4. Sort all users to ID/Name");
+                    System.out.println("Enter '1' to sort by ID or '2' to sort by Name:");
+                    String chooseSortType;
+                    option = inputNumberThanks(userInput);
+                    switch (option){
+                        case 1:
+                            chooseSortType = "ID";
+                            userList.userSort(chooseSortType);
+                            break;
+                        case 2:
+                            chooseSortType = "Name";
+                            userList.userSort(chooseSortType);
+                            break;
+                    }
+
+                    System.out.println("Sorted");
+                    for (int i = 0; i < userList.getSize(); i++) {
+
+                        System.out.println(userList.getUser(i));
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Exiting");
+                    System.exit(0);
+                    break;
+
+            }
+            // Exits code if boolean is false
+            if (!askForGoBack(userInput)) {
+                System.out.println("Exiting");
+                System.exit(0);
+            }
         }
-        User user2 = new User();
-        user2.setId(userID);
-        user2.setName("Erik");
-        user2.setEmail("erikwei@hotmail.com");
-        //User user2 = new User(2, "Erik2", "erikwei@hotmail.com2");*/
-
-        // Lägg till användarna till listan
-        /*userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
-        System.out.println(userID);
-        userID = setUserID(userInput);
-        if (userID == null) return; //exit function
-        userList.addUser(new User(userID, "David", "david@live.com"));*/
-
-        // Skriv ut namnen på alla användare i listan
-        /*for (int i = 0; i < userList.getSize(); i++) {
-            System.out.println(userList.getUser(i));
-        }
-
-         */
-
-
-        /*User user1 = new User(1, "Alice", "alice@gmail.com");
-        User user2 = new User(2, "Bob", "bob@live.com");
-
-        // Skapa en UserList
-        UserList userList = new UserList();
-
-        // Lägg till användarna till listan
-        userList.addUser(user1);
-        userList.addUser(user2);*/
-
     }
 
-    private static Integer setUserID(Scanner userInput) {
-        int userID;
-
-        // Try-catch for unintended input, will update to while loop to restart at input
-        try {
-            userID = Integer.parseInt(userInput.nextLine());
-        } catch (Exception ex) {
-            System.out.println("Error: Could not parse age to number, exiting");
-            return null;
-        }
-        return userID;
-    }
 
     /**
      * Method which asks and takes the input from the user of listed options
      */
-    public static void askAtStart() {
-        UserList userList = new UserList();
-
+    public static int askAtStart(Scanner userInput) {
         System.out.println(
-
                 """
-                        Welcome, do you want to:
+                        Do you want to:
                         1. Add user
                         2. Remove user
-                        3. Get specific user"""
+                        3. Get specific user
+                        4. Sort all users to ID/Name
+                        0. Exit"""
         );
 
         Scanner switchChoice = new Scanner(System.in);
+        return inputNumberThanks(userInput);
+    }
 
-        switch (switchChoice.nextInt()) {
-            case 1:
-                System.out.println("1. Add user");
-                Scanner userInput = new Scanner(System.in);
-                System.out.println("Enter id:");
-                var userID = setUserID(userInput);
+    private static Integer inputNumberThanks(Scanner userInput) {
 
-                if (userID == null) return; //exit function
-                userList.addUser(new User(userID, "Erik", "erikwei@hotmail.com"));
+        while (true) {
 
-                for (int i = 0; i < userList.getSize(); i++) {
-                    // Debug
-                    System.out.println(userList.getUser(i));
-                }
-                break;
-
-            case 2:
-                System.out.println("2. Remove user");
-                break;
-
-            case 3:
-                System.out.println("3. Get specific user");
-                break;
+            try {
+                //System.out.println("Enter id:");
+                int numberInput = Integer.parseInt(userInput.nextLine());
+                return numberInput;
+            }
+            catch (NumberFormatException ex) {
+                System.out.println("Error: Please input a number");
+            }
         }
+    }
+    private static String inputStringThanks(Scanner userInput){
 
+        while (true) {
+
+            try {
+                String stringInput = userInput.nextLine();
+                return stringInput;
+            }
+            catch (Exception ex) {
+                System.out.println("Error: Please input a valid string");
+            }
+        }
+    }
+
+
+    /**
+     *
+     * @param userInput Asks for Y/N to continue code
+     * @return Y as a true boolean
+     */
+    private static boolean askForGoBack(Scanner userInput) {
+        String response;
+        System.out.println("Do you want to go back? (Y/N)");
+        do {
+            response = userInput.nextLine().trim().toUpperCase();
+            if (!response.equals("Y") && !response.equals("N")) {
+                System.out.println("Please enter Y or N");
+            }
+        } while (!response.equals("Y") && !response.equals("N"));
+
+        return response.equals("Y");
     }
 
 }

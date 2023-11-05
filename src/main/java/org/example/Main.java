@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        //  Instantiates UserList and Scanner-class
+        // Instantiates UserList and Scanner-class
         UserList userList = new UserList();
         Scanner userInput = new Scanner(System.in);
 
@@ -101,7 +101,7 @@ public class Main {
                         0. Exit"""
         );
 
-        Scanner switchChoice = new Scanner(System.in);
+        //Scanner switchChoice = new Scanner(System.in);
         return inputNumberThanks(userInput);
     }
 
@@ -111,8 +111,7 @@ public class Main {
 
             try {
                 //System.out.println("Enter id:");
-                int numberInput = Integer.parseInt(userInput.nextLine());
-                return numberInput;
+                return Integer.parseInt(userInput.nextLine());
             }
             catch (NumberFormatException ex) {
                 System.out.println("Error: Please input a number");
@@ -124,8 +123,7 @@ public class Main {
         while (true) {
 
             try {
-                String stringInput = userInput.nextLine();
-                return stringInput;
+                return userInput.nextLine();
             }
             catch (Exception ex) {
                 System.out.println("Error: Please input a valid string");

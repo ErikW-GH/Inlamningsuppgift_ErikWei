@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class UserList {
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
 
     public UserList() {
         this.users = new ArrayList<>();
@@ -14,11 +14,26 @@ public class UserList {
         this.users.add(user);
     }
 
-    public void removeUser(String username) {
+    public void removeUserById(Integer removeInput) {
         Iterator <User> itr = users.iterator();
         while (itr.hasNext()){
-            User element = (User) itr.next();
-            if (element.getName().equals(username)) {
+            User userToRemove = itr.next();
+            if (userToRemove.getId() == removeInput) {
+                itr.remove();
+            }
+
+            /*if (userToRemove.getName().equals(removeInput)) {
+                itr.remove();
+            }
+             */
+
+        }
+    }
+    public void removeUserByString(String removeInputString){
+        Iterator <User> itr = users.iterator();
+        while (itr.hasNext()){
+            User userToRemove = itr.next();
+            if (userToRemove.getName().equals(removeInputString)) {
                 itr.remove();
             }
         }
@@ -37,15 +52,26 @@ public class UserList {
         return this.users.get(getUserIndex);
     }
 
-    public User getUserByIdOrName(int getUserIndex)
-            throws IndexOutOfBoundsException {
-
-
-        return this.users.get(getUserIndex);
+    public User getUserByIdOrName(String idOrNameIndex) {
+        for (User user : users) {
+            if (String.valueOf(user.getId()).equals(idOrNameIndex) || user.getName().equalsIgnoreCase(idOrNameIndex)) {
+                return user;
+            }
+        }
+        return null; // User not found
     }
 
     public void setUser(int index, User user) {
         this.users.set(index, user);
+    }
+
+    public boolean doesUserExist(int userID) {
+        for (User user : users) {
+            if (user.getId() == userID) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void userSort(String sortBy) {

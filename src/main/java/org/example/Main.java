@@ -12,6 +12,7 @@ public class Main {
         int option = 0;
 
         System.out.println(
+                "\n" +
                 "########### Inlämningsuppgift ###########"
         );
 
@@ -21,36 +22,46 @@ public class Main {
             option = askAtStart(userInput);
 
             switch (option) {
-
-                case 1:
-                    //System.out.println("1. Add user");
+                
+                case 1: // Add User
                     System.out.println("Enter id:");
                     var userID = inputNumberThanks(userInput);
                     System.out.println("Enter name");
-                    var userName = inputStringThanks(userInput);
+                    var userName = inputAlphabetThanks(userInput);
                     System.out.println("Enter mail");
-                    var userMail = inputStringThanks(userInput);
+                    var userMail = inputAlphabetThanks(userInput);
 
+                    //Adds user to Array
                     userList.addUser(new User(userID, userName, userMail));
                     System.out.println("Saved user:" + userName);
 
                     break;
 
-                case 2:
-                    //System.out.println("2. Remove user");
-                    break;
-
-                case 3:
-                    //System.out.println("3. Get specific user");
-                    System.out.println("These are the listed users: ");
+                case 2: // Remove user
+                    System.out.println("Enter name to remove");
+                    // Prints list of all Users
                     for (int i = 0; i < userList.getSize(); i++) {
 
                         System.out.println(userList.getUser(i));
                     }
+                    // Removes by name
+                    String removeByName = inputAlphabetThanks(userInput);
+
+
+                    userList.removeUser(removeByName);
+                    System.out.println("Successfully removed " + removeByName);
                     break;
 
-                case 4:
-                    //System.out.println("4. Sort all users to ID/Name");
+                case 3: // Get specific user by Id
+                    /*System.out.println("These are the listed users: ");
+                    for (int i = 0; i < userList.getSize(); i++) {
+
+                        System.out.println(userList.getUser(i));
+                    }
+                     */
+                    break;
+
+                case 4: // Sort all users by ID/Name
                     System.out.println("Enter '1' to sort by ID or '2' to sort by Name:");
                     String chooseSortType;
                     option = inputNumberThanks(userInput);
@@ -64,7 +75,7 @@ public class Main {
                             userList.userSort(chooseSortType);
                             break;
                     }
-
+                    // Prints out sorted list
                     System.out.println("Sorted");
                     for (int i = 0; i < userList.getSize(); i++) {
 
@@ -86,7 +97,6 @@ public class Main {
         }
     }
 
-
     /**
      * Method which asks and takes the input from the user of listed options
      */
@@ -105,6 +115,12 @@ public class Main {
         return inputNumberThanks(userInput);
     }
 
+
+    /**
+     *
+     * @param userInput Input
+     * @return Returns only if user input an integer, otherwise will print out error
+     */
     private static Integer inputNumberThanks(Scanner userInput) {
 
         while (true) {
@@ -118,19 +134,20 @@ public class Main {
             }
         }
     }
-    private static String inputStringThanks(Scanner userInput){
+    private static String inputAlphabetThanks(Scanner userInput){
 
-        while (true) {
+        while (true){
 
-            try {
-                return userInput.nextLine();
-            }
-            catch (Exception ex) {
+            String noNumberString = userInput.nextLine();
+            // Creates an if-check if input string matches alphabet as well as @ and punctuation
+            // This is for Name and Email
+            if (noNumberString.matches("[a-öA-Ö@.]+")) {
+                return noNumberString;
+            } else {
                 System.out.println("Error: Please input a valid string");
             }
         }
     }
-
 
     /**
      *
@@ -143,7 +160,7 @@ public class Main {
         do {
             response = userInput.nextLine().trim().toUpperCase();
             if (!response.equals("Y") && !response.equals("N")) {
-                System.out.println("Please enter Y or N");
+                System.out.println("Error: Please enter Y or N");
             }
         } while (!response.equals("Y") && !response.equals("N"));
 

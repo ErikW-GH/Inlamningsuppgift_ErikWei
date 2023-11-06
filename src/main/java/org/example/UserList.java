@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserList {
     private ArrayList<User> users;
@@ -13,8 +14,14 @@ public class UserList {
         this.users.add(user);
     }
 
-    public boolean removeUser(User user) {
-        return this.users.remove(user);
+    public void removeUser(String username) {
+        Iterator <User> itr = users.iterator();
+        while (itr.hasNext()){
+            User element = (User) itr.next();
+            if (element.getName().equals(username)) {
+                itr.remove();
+            }
+        }
     }
 
     public int getSize() {

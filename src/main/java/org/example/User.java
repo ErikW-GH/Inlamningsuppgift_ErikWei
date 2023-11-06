@@ -25,6 +25,9 @@ public class User {
         this.email = email;
     }
 
+
+    // Override for toString to return all variables
+    // Mainly used as debug
     @Override
     public String toString() {
         return " ID:" + +id + " Name:" +

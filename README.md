@@ -1,5 +1,6 @@
-# User & UserList
 # Inlämningsuppgift - Erik Wei (console application)
+##  User & UserList
+
 
 - [Markdown Guide: Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 - [Github: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
@@ -68,22 +69,52 @@ I will instead name a few that I've personally used:
   - Database tools
   - IDE Setting sync
        </ul>
- 
-  
-* [![Java][Java]][https://www.java.com/en/]
-* [![Maven][Maven]][https://maven.apache.org/]
-* [![OpenJDK][OpenJDK]][https://openjdk.org/]
-* [![JetBrains IntelliJ IDEA][JetBrains IntelliJ IDEA]][https://www.jetbrains.com/idea/]
 
+[![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com/en/)
+
+[![OpenJDK](https://img.shields.io/badge/openjdk-437291.svg?style=for-the-badge&logoColor=yellow&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAB0UlEQVRIia3VTYiNURgH8N+dO0rjhsbMgikNUVakTM0GC1kqH1lQStwFFhYWylqxsNJEyXZKSUm+SygRpZSP1TQ+YgglEdMI1+Kcm9d13tvc995/nd56nuf8/895n+c8p6w1HMUCPG5x37SwAzVMYU2nyZdiMgrU8AazOylwOUNeXyOdIt+SIK/hF1a1S14SCpoSqOFquwKbItFvHMcyDOKgvzUZbkfgfiQ5nfDtj76LzQjKTXzLMYBzuIJXDf4xzMcXPMHnFElXE4GdOIyJnES68BZHsDuPJE9gMfrwDrewNSeBS3iOJViUIkpltho3hD5/iq+oYA8+YC72CYU/E/dUcBZ38TrvNLANd3APvQ2+QezFAaE+WczDgyiQOi3YiPOYidFmWeRgFD24gA11Y7YGQzgldMZYAYFnWIiTcu5GP25iezaDFrAeVaF+/XlBVaErBgoI9AoFrmaNjW36UfiPEwUEPglvxfu8gFkYx+0C5HVcixw9dUP2BD+xVrj2RTGOdZELdGecU8JLNaMNgTJeZg2pUdGdsE0X/yWXInuBlXiEOdiFFXFzCd/i94cwqq8LY2NI6MB/UEoIVHBMuNFwAg9z4jYL/T8Z1yF8zwb9AbKCa544nxFWAAAAAElFTkSuQmCC)](https://openjdk.org/)
+
+[![Maven](https://img.shields.io/badge/apachemaven-C71A36.svg?style=for-the-badge&logo=apachemaven&logoColor=white)](https://maven.apache.org/)
+
+[![JetBrains IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea)](https://www.jetbrains.com/idea/)
+
+
+<p style="font-family: Bahnschrift;  text-align: center">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+If you are planning to set up the project locally I would recommend to clone it from GitHub.
+
+Follow the Github-link, go to code and either 'Download ZIP' or Open with GitHub Desktop
+
+![GitHub Clone wih Desktop](https://gyazo.com/72a5a39d865eb5455846e360f4bcf170)
+
+### Prerequisites
+
+The code can be run with any java IDE. For most reliable and accurate compilation please use [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+Another option would be using the Linux distribution Ubuntu. 
+If you are running Windows I recommend Ubuntu found in Microsoft Store
+
+### Installation
+
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/github_username/repo_name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```js
+   const API_KEY = 'ENTER YOUR API';
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-## How To Use
-
-1. Pull the code from Github
-2. Open the project in Intellij IDEA
-3. Run `main()` from ``
 
 
 ## Project structure
@@ -105,7 +136,7 @@ creating, removing, and getting user information.
 
 ## Image demo
 
-How to add an image: `![alt text](/assets/DEMO.png)`.
+How to add an image: ![Alt text](https://gyazo.com/72a5a39d865eb5455846e360f4bcf170).
 
 **Demo:**
 

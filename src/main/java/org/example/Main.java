@@ -1,32 +1,35 @@
 package org.example;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    // Makes userInput outside psvm so as it will be continually used
+    // Making it final will be more secure as no value will be changed
     private static final Scanner userInput = new Scanner(System.in);
-
     public static void main(String[] args) {
 
         // Instantiates UserList
         UserList userList = new UserList();
 
-        int option = 0;
+        int optInput = 0;
+
         System.out.println(
                 """
 
                         ########### Inlämningsuppgift ###########
                         """
         );
-        menuHandler(option, userList);
+        menuHandler(optInput, userList);
     }
-    private static void menuHandler(int option, UserList menuList) {
-        // Loops back while 0, or after user changes option through the switch-case
-        while (option >= 0) {
-            option = askAtStart(userInput);
-            switch (option) {
+    private static void menuHandler(int optInput, UserList menuList) {
+        // Loops back while 0, or after user changes optInput through the switch-case
+        while (optInput >= 0) {
+            optInput = askAtStart(userInput);
+            switch (optInput) {
 
                 case 1: // Add User
-                    addUsers(menuList);
+                    addUser(menuList);
                     break;
 
                 case 2: // Remove user
@@ -34,25 +37,27 @@ public class Main {
                     break;
 
                 case 3: // Get specific user by ID or name
-                    getByIdOrName(menuList);
+                    retrieveUser(menuList);
                     break;
 
                 case 4: // Sort all users by ID/Name
-                    option = sortUser(menuList);
+                    optInput = sortUser(menuList);
                     break;
 
-                case 0:
+                case 0: // Exit code
                     System.out.println("Exiting");
                     System.exit(0);
                     break;
-                default:
+
+                default: // Defaults if user input anything other than mentioned numbers
                     System.out.println("Invalid menu selection");
-                    option = 0;
+                    optInput = 0;
                     break;
 
             }
-            // Exits code if boolean is false
-            if (!askForGoBack()) {
+            // Go back function, which defaults after every break, except for 'default'
+            // Exits code if boolean is false, same as case 0
+            if (optInput != 0 && !askForGoBack()) {
                 System.out.println("Exiting");
                 System.exit(0);
             }
@@ -73,10 +78,10 @@ public class Main {
                         4. Sort all users to ID/Name
                         0. Exit"""
         );
-        return inputNumberThanks(userInput);
+        return forceNumberOnly(userInput);
     }
     /**
-     * @return Y as a true boolean, N as false
+     * @return Y as a true boolean, N as false, which will exit code
      */
     private static boolean askForGoBack() {
         String response;
@@ -90,38 +95,27 @@ public class Main {
 
         return response.equals("Y");
     }
-    private static void addUsers(UserList userList) {
+    private static void addUser(UserList userList) {
         System.out.println("Enter id:");
-        var userID = inputNumberThanks(Main.userInput);
+        int userID = forceNumberOnly(Main.userInput);
         if (userList.doesUserExist(userID)) {
             System.out.println("User with the same ID already exists. Please choose a different ID.");
             return; // Exit the function without adding the user.
         }
         System.out.println("Enter name");
-        var userName = inputAlphabetThanks();
+        var userName = forceAlphabetOnly();
         System.out.println("Enter mail");
-        var userMail = inputAlphabetThanks();
+        var userMail = forceAlphabetOnly();
 
         //Adds user to Array
         userList.addUser(new User(userID, userName, userMail));
         System.out.println("Saved user: " + userName);
     }
-    private static void getByIdOrName(UserList menuList) {
-        System.out.println("Enter the ID or Name of user you want to get");
-        var idOrName = Main.userInput.nextLine();
-        User specificUser = menuList.getUserByIdOrName(idOrName);
-
-        if (specificUser != null) {
-            System.out.println("User found:" + specificUser);
-        } else {
-            System.out.println("Not found." + idOrName + " is Error." );
-        }
-    }
     private static void removeUser(UserList userList) {
         System.out.println("Enter name to remove");
         // Prints list of all Users
         printAllUsers(userList);
-        var removeByNum = inputNumberThanks(Main.userInput);
+        var removeByNum = forceNumberOnly(Main.userInput);
 
         // Initialized User has to be null as it is temporary
         // And as well as not inputting any variables
@@ -135,35 +129,46 @@ public class Main {
                 break;
             }
         }
-
-        // Removes by id
+        // Removes by id, prints the name of user removed before removing
         System.out.println("Successfully removed id: " + removeByNum + ". Which is: " + userToRemove.getName());
         userList.removeUserById(removeByNum);
-
-        //String removeByName = inputAlphabetThanks(Main.userInput);
-        //userList.removeUser(removeByName);
     }
+    private static void retrieveUser(UserList menuList) {
+        // Instantiates a List to list all current user IDs
+        List<Integer> allIds = menuList.listAllIds();
+        System.out.println("Available User IDs: " + allIds);
 
-/// Add getSpecificUser
+        System.out.println("Enter the ID or Name of user you want to get");
+        String idOrName = Main.userInput.nextLine();
+        User specificUser = menuList.getUserByIdOrName(idOrName);
 
-    private static int sortUser(UserList userList) {
-        int option = inputNumberThanks(Main.userInput);
+        if (specificUser != null) {
+            System.out.println("User found:" + specificUser);
+        } else {
+            System.out.println("Not found." + idOrName + " is Error or does not exist." );
+        }
+    }
+    private static int sortUser(UserList menuList) {
+        int option;
         System.out.println("Enter '1' to sort by ID or '2' to sort by Name:");
         String chooseSortType;
+        option = forceNumberOnly(userInput);
         switch (option){
             case 1:
                 chooseSortType = "ID";
-                userList.userSort(chooseSortType);
+                menuList.userSort(chooseSortType);
                 break;
             case 2:
                 chooseSortType = "Name";
-                userList.userSort(chooseSortType);
+                menuList.userSort(chooseSortType);
                 break;
         }
         // Prints out sorted list
         System.out.println("Sorted");
+        for (int i = 0; i < menuList.getSize(); i++) {
 
-        printAllUsers(userList);
+            System.out.println(menuList.getUser(i));
+        }
         return option;
     }
     private static void printAllUsers(UserList userList) {
@@ -173,32 +178,34 @@ public class Main {
         }
     }
     /**
-     *
-     * @param userInput Input
+     * @param numScan Input
      * @return Returns only if user input an integer, otherwise will print out error
      */
-    private static Integer inputNumberThanks(Scanner userInput) {
+    private static Integer forceNumberOnly(Scanner numScan) {
 
         while (true) {
 
             try {
                 //System.out.println("Enter id:");
-                return Integer.parseInt(userInput.nextLine());
+                return Integer.parseInt(numScan.nextLine());
             }
             catch (NumberFormatException ex) {
                 System.out.println("Error: Please input a number");
             }
         }
     }
-    private static String inputAlphabetThanks(){
+    /**
+     * @return Returns only if user input an alphabet, otherwise will print out error
+     */
+    private static String forceAlphabetOnly(){
 
         while (true){
 
-            String noNumberString = Main.userInput.nextLine();
+            String alphabScan = Main.userInput.nextLine();
             // Creates an if-check if input string matches alphabet as well as @ and punctuation
             // This is for Name and Email
-            if (noNumberString.matches("[a-öA-Ö@.]+")) {
-                return noNumberString;
+            if (alphabScan.matches("[a-öA-Ö@.]+")) {
+                return alphabScan;
             } else {
                 System.out.println("Error: Please input a valid string");
             }

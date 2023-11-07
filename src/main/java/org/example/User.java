@@ -1,11 +1,9 @@
 package org.example;
 
 public class User {
-
     private final int id;
     private final String name;
     private final String email;
-
     public int getId() {
         return id;
     }
@@ -20,7 +18,6 @@ public class User {
         this.name = name;
         this.email = email;
     }
-
     // Override for toString to return all variables
     // Default in every println which references the class User, such as printAllUsers
     @Override

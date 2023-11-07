@@ -2,18 +2,25 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class UserList {
     private final ArrayList<User> users;
-
     public UserList() {
         this.users = new ArrayList<>();
     }
-
     public void addUser(User user) {
         this.users.add(user);
     }
-
+    // Boolean check if mentioned user exists with the same input ID
+    public boolean doesUserExist(int userId) {
+        for (User user : users) {
+            if (user.getId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
     public void removeUserById(Integer removeInput) {
         Iterator <User> itr = users.iterator();
         while (itr.hasNext()){
@@ -43,6 +50,7 @@ public class UserList {
         return this.users.size();
     }
 
+
     public User getUser(int getUserIndex)
             throws IndexOutOfBoundsException {
 
@@ -51,7 +59,13 @@ public class UserList {
         }
         return this.users.get(getUserIndex);
     }
-
+    public List<Integer> listAllIds() {
+        List<Integer> userIds = new ArrayList<>();
+        for (User user : users) {
+            userIds.add(user.getId());
+        }
+        return userIds;
+    }
     public User getUserByIdOrName(String idOrNameIndex) {
         for (User user : users) {
             if (String.valueOf(user.getId()).equals(idOrNameIndex) || user.getName().equalsIgnoreCase(idOrNameIndex)) {
@@ -65,14 +79,6 @@ public class UserList {
         this.users.set(index, user);
     }
 
-    public boolean doesUserExist(int userID) {
-        for (User user : users) {
-            if (user.getId() == userID) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void userSort(String sortBy) {
         int arrayLength = this.getSize();

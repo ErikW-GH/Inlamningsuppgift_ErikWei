@@ -12,21 +12,20 @@ public class Main {
         // Instantiates UserList
         UserList userList = new UserList();
 
-        int optInput = 0;
-
         System.out.println(
                 """
 
                         ########### Inlämningsuppgift ###########
                         """
         );
-        menuHandler(optInput, userList);
+        menuHandler(userList);
     }
-    private static void menuHandler(int optInput, UserList menuList) {
+    private static void menuHandler(UserList menuList) {
+        int menuOption = 0;
         // Loops back while 0, or after user changes optInput through the switch-case
-        while (optInput >= 0) {
-            optInput = askAtStart(userInput);
-            switch (optInput) {
+        while (menuOption >= 0) {
+            menuOption = askAtStart(userInput);
+            switch (menuOption) {
 
                 case 1: // Add User
                     addUser(menuList);
@@ -41,7 +40,7 @@ public class Main {
                     break;
 
                 case 4: // Sort all users by ID/Name
-                    optInput = sortUser(menuList);
+                    menuOption = sortUser(menuList);
                     break;
 
                 case 0: // Exit code
@@ -51,13 +50,13 @@ public class Main {
 
                 default: // Defaults if user input anything other than mentioned numbers
                     System.out.println("Invalid menu selection");
-                    optInput = 0;
+                    menuOption = 0;
                     break;
 
             }
             // Go back function, which defaults after every break, except for 'default'
             // Exits code if boolean is false, same as case 0
-            if (optInput != 0 && !askForGoBack()) {
+            if (menuOption != 0 && !askForGoBack()) {
                 System.out.println("Exiting");
                 System.exit(0);
             }
@@ -183,7 +182,6 @@ public class Main {
      */
     private static Integer forceNumberOnly(Scanner numScan) {
 
-        
         while (true) {
 
             try {

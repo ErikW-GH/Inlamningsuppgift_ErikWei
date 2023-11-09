@@ -4,7 +4,7 @@
 
 - [Markdown Guide: Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 - [Github: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
-
+<a name="readme-top"></a>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -89,35 +89,75 @@ If you are planning to set up the project locally I would recommend to clone it 
 
 Follow the Github-link, go to code and either 'Download ZIP' or Open with GitHub Desktop
 
-![GitHub Clone wih Desktop](https://gyazo.com/72a5a39d865eb5455846e360f4bcf170)
+![GitHub Clone wih Desktop](https://i.gyazo.com/72a5a39d865eb5455846e360f4bcf170.gif)
 
 ### Prerequisites
 
 The code can be run with any java IDE. For most reliable and accurate compilation please use [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 Another option would be using the Linux distribution Ubuntu. 
-If you are running Windows I recommend Ubuntu found in Microsoft Store
+
+If you are running Windows I recommend Ubuntu found in the Microsoft Store
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+### Ubuntu
+These steps will help you install, compile and run the code in Ubuntu
+
+1. First, inside Powershell type:
+    >wsl --install
+2. Download Ubuntu for Windows at [Microsoft Store](https://www.microsoft.com/store/productId/9PDXGNCFSCZV?ocid=pdpshare)
+3. Open installed Ubuntu and choose password etc.
+4. Type in:
+    >sudo apt-get update
+
+    >sudo apt install openjdk-19-jdk-headless
+5. If multiple versions of openjdk is already installed
+    >sudo update-alternatives --config java
+6. Enter number correlated to the correct openjdk, which should be openjdk-19 in 'auto mode'
+7. Double check now that you have the correct version. It should display this.
+    >java -version
+
+    >openjdk version "19.0.2" 2023-01-17
+8. Install git and clone the repo
+    >sudo apt install git
+    
+    >git --version
+
+9. 
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/ErikW-GH/Inlamningsuppgift_ErikWei.git TestFolder
    ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+10. This will create a new directory called `TestFolder`. 
+If you do not wish to create this directory remove the text, instead go to 10.b
+
+10.a Change directory to if you have created said directory
+
+>    cd TestFolder/
+
+10.b If you have not created `TestFolder`, enter this instead
+
+>    cd ~/Inlamningsuppgift_ErikWei
+
+
+11. Compile the code
+    >javac -d out src/main/java/org/example/*.java
+12. Run the code
+    >java -cp out org.example.Main
+13. The `-cp out` option sets the classpath to the out directory, and org.example.Main is the fully qualified name of the Main class.
+
+### Windows - IntelliJ IDEA Ultimate
+Inside IntelliJ after cloning with GitHub Desktop, run Main.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Project structure
+## Documentation
+
+In this documentation I will be going through and commenting on every line
+that contains some form of explanation that requires so. I will start with the class Main,
+and go through User and UserList and its functions. I will be listing some sources as well in the end.
+
 
 ### `Main.java`
 
@@ -125,53 +165,60 @@ This file is the entry point and will call the UserList to manage users.
 
 Here is where all user input / output is done.
 
+
+`Line 9: private static final Scanner userInput = new Scanner(System.in)`
+
+I will be using the Scanner class throughout this project as a way for the user 
+to type in the console with information which will be temporarily stored for each instance (meaning each run).
+The scanner as seen in the comment code is outside psvm as it will be 
+continually used in other methods contained inside `Main.java`.
+
+`Line 13, 21, 23-24:` 
+
+`UserList userList = new UserList();`
+
+`UserList userList` is an instance of the class `UserList.java`. 
+This instance is created in the main method and passed to the menuHandler method,
+which will take care of adding, removing, finding and sorting Users stored inside its ArrayList.
+
+`private static void menuHandler(UserList menuList) {` is a method which handles all the operations for the console menu.
+They are set to `private`, which limits visibility of the method, and can only be accessed within the same class, 
+`Main.java` in this case.
+
+`static` can be called without creating an instance of the class. 
+This is helpful as it doesn't depend on the state of any object and neither needs to modify any fields in the class.
+However, seeing now as I only call `menuHandler` once in my code, another option would be to remove its static state
+and instead initialize it inside psvm. I will refrain from doing so but will instead add inside here how I would do it.
+
+>       Main mainInstance = new Main(); 
+>       mainInstance.menuHandler(userList);
+>           }
+>
+>       private void menuHandler(UserList menuList) {
+
+
+`int menuOption = 0;` is set to 0 as it is a variable which is initialized at that number.
+This is created inside `menuHandler` which determines the switch-case operation for when the user inputs an option.
+
+`Line 26-59:`
+
+This is a switch-case which is inside a while-loop 
+
 ### `User.java`
 
 This file creates private variables for ID, Name, and Email.
 
 ### `UserList.java`
 
-This files uses the class 'User' and creates and ArrayList, which manages its users by 
+This files uses the class 'User' and creates and ArrayList, which manages its users by
 creating, removing, and getting user information.
-
-## Image demo
-
-How to add an image: ![Alt text](https://gyazo.com/72a5a39d865eb5455846e360f4bcf170).
-
-**Demo:**
-
-![alt text](/assets/DEMO.png)
-
-## Link demo
-
-How to add a link: `[Link text](https://example.com/)`.
-
-**Demo:**
-
-[Link text](https://example.com/)
-
-## List demo
-
-### Unordered list
-
-- Unordered one
-- Unordered two
-- Unordered three
-
-### Ordered list
-
-1. Ordered one
-2. Ordered two
-3. Ordered three
 
 
 ## Clean code
 
 This code demonstrates using clean code by having descriptive method names such as
 
-- `getAllCars()`: Describes exactly what it does, gets all cars from the database and returns the to the caller
-- `throws SQLException`: Throw the exception to the caller so that it can the error correctly
-- `executeSelectSql(String sql)`: Describes exactly what it does, takes an SQL query string, executes it and returns
-  the result as a `ResultSet`
-
-```java
+- `menuHandler()`: Describes exactly what it does. Handles the menu input
+- `askAtStart()`: GUI for options, which will return input to menuHandler
+- `askForGoBack()`: Method which returns an input for which the user loops back at the beginning of `askAtStart()` or quits
+- `NumberFormatException ex`: Catches for a number and if incorrect prints out error

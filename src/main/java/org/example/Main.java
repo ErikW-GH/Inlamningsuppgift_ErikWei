@@ -183,6 +183,7 @@ public class Main {
      */
     private static Integer forceNumberOnly(Scanner numScan) {
 
+        
         while (true) {
 
             try {

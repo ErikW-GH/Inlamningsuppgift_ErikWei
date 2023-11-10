@@ -200,11 +200,11 @@ public class Main {
 
         while (true){
 
-            String alphabScan = Main.userInput.nextLine();
+            String abcScan = Main.userInput.nextLine();
             // Creates an if-check if input string matches alphabet as well as @ and punctuation
             // This is for Name and Email
-            if (alphabScan.matches("[a-öA-Ö@.]+")) {
-                return alphabScan;
+            if (abcScan.matches("[a-öA-Ö@.]+")) {
+                return abcScan;
             } else {
                 System.out.println("Error: Please input a valid string");
             }

@@ -21,6 +21,8 @@ public class UserList {
         }
         return false;
     }
+    // Method which iterates through the users list and
+    // finds the corresponding id that user wants to remove
     public void removeUserById(Integer removeInput) {
         Iterator <User> itr = users.iterator();
         while (itr.hasNext()){
@@ -29,13 +31,10 @@ public class UserList {
                 itr.remove();
             }
 
-            /*if (userToRemove.getName().equals(removeInput)) {
-                itr.remove();
-            }
-             */
-
         }
     }
+    // Method which will remove by string but is not fully implemented
+    // Will leave as is, but it is never used
     public void removeUserByString(String removeInputString){
         Iterator <User> itr = users.iterator();
         while (itr.hasNext()){
@@ -45,20 +44,20 @@ public class UserList {
             }
         }
     }
-
+    // Returns the size of the ArrayList
     public int getSize() {
         return this.users.size();
     }
-
-
+    // Throws for a check if input index is out of bounds or doesn't exist/hasn't been created
     public User getUser(int getUserIndex)
             throws IndexOutOfBoundsException {
 
-        if (getUserIndex < 0 || getUserIndex >= this.users.size()) {
+        if (getUserIndex < 0 || getUserIndex >= getSize()) {
             throw new IndexOutOfBoundsException("User index out of bounds!");
         }
         return this.users.get(getUserIndex);
     }
+    // Method which lists all Ids using
     public List<Integer> listAllIds() {
         List<Integer> userIds = new ArrayList<>();
         for (User user : users) {
@@ -66,6 +65,7 @@ public class UserList {
         }
         return userIds;
     }
+    // Method which will be used to get user information either by id or name
     public User getUserByIdOrName(String idOrNameIndex) {
         for (User user : users) {
             if (String.valueOf(user.getId()).equals(idOrNameIndex) || user.getName().equalsIgnoreCase(idOrNameIndex)) {
@@ -78,8 +78,7 @@ public class UserList {
     public void setUser(int index, User user) {
         this.users.set(index, user);
     }
-
-
+    // Sorting algorithm using Bubble Sort which we've learned about in previous lessons
     public void userSort(String sortBy) {
         int arrayLength = this.getSize();
         User tempUser;

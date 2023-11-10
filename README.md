@@ -4,6 +4,8 @@
 
 - [Markdown Guide: Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 - [Github: About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)
+- [README template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md#readme-top)
+- [Iterator found of Stackoverflow](https://stackoverflow.com/questions/19890378/removing-a-user-from-an-arraylist-by-username)
 <a name="readme-top"></a>
 
 <!-- TABLE OF CONTENTS -->
@@ -23,12 +25,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#clean-code">Clean Code</a></li>
   </ol>
 </details>
 
